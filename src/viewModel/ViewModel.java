@@ -51,7 +51,6 @@ public class ViewModel implements Observer
 	
 	public Runnable Play,Pause,Stop,Forward,Backward,DoubleForward,DoubleBackward,connect,disconnect;
 	boolean cord =false;
-	Executor executor;
 	
 	public ViewModel()
 	{
@@ -70,7 +69,6 @@ public class ViewModel implements Observer
 		model=new Model(timeStep,rate);
 		DisplayVar = new HashMap<String, SimpleDoubleProperty>();
 		algoName=new SimpleStringProperty();
-		reports= new ArrayList<AnomalyReport>();
 		model.addObserver(this);
 		
 		
@@ -84,7 +82,6 @@ public class ViewModel implements Observer
 			Platform.runLater(()->{videoTime.set(toStringTime(nv.doubleValue()/10));});
 		});
 		
-		executor = Executors.newCachedThreadPool();
 		
 		Play=()->model.play();
 		Pause=()->model.pause();
@@ -291,7 +288,7 @@ public class ViewModel implements Observer
 				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6) + " ");
 				model.setAnomalyDetector(this.ad);
 				LearnData();
-				DetectAnomalies();
+				reports =  DetectAnomalies();
 			}
 		}
 		else {
@@ -331,15 +328,11 @@ public class ViewModel implements Observer
 	}
 	
 	public void PaintTrainPoints(String selctedCol, String corlleatedCol, Series seriesC) {
-		executor.execute(()->{
-			Platform.runLater(()->{
 					for (int i = 0; i < Train.NumOfRows; i++) {
 						float y1 = Train.getSepecificValue(selctedCol, i);
 						float y2 = Train.getSepecificValue(corlleatedCol, i);
 						seriesC.getData().add(new XYChart.Data(y1,y2));
 					}
-				});
-		});
 	}
 
 	public void PaintAlgo(String selctedCol, String corlleatedCol,Series Algo) {
@@ -356,30 +349,60 @@ public class ViewModel implements Observer
 	}
 	
 	public void LearnData() {model.learnData();}
-	public void DetectAnomalies() {model.DetectData();}
+	public List<AnomalyReport> DetectAnomalies() {return model.DetectData();}
 	
 	public void paintFeature(String selctedCol, Number nv,Series s) {
-		executor.execute(()->{
 			if (nv.intValue() < Test.NumOfRows) {
 				Platform.runLater(()->{
-						s.getData().add(new XYChart.Data(String.valueOf(nv.intValue()),Test.getSepecificValue(selctedCol, nv.intValue())));
-						/*if (s.getData().size() > 250) {
-							s.getData().remove(0);
-						}*/
+					s.getData().add(new XYChart.Data(String.valueOf(nv.intValue()),Test.getSepecificValue(selctedCol, nv.intValue())));
+					
 				});
+						
 			}
-		});	
 	}
 	
+	public void PaintTestPoints(String selctedCol, String corlleatedCol, int intValue, Series anomaly_Flight, Series anomalies) {
+				if (intValue < Test.NumOfRows) {
+					if (!isRepot(selctedCol,corlleatedCol,intValue)) {
+						Platform.runLater(()->{
+							anomaly_Flight.getData().add(new XYChart.Data(Test.getSepecificValue(selctedCol, intValue),Test.getSepecificValue(corlleatedCol, intValue)));
+						});
+						if (anomaly_Flight.getData().size() > 20) {
+							Platform.runLater(()->{
+								anomaly_Flight.getData().remove(0);
+								anomalies.getData().clear();
+							});
+						}
+					}
+					else {
+						Platform.runLater(()->{
+							anomalies.getData().add(new XYChart.Data(Test.getSepecificValue(selctedCol, intValue),Test.getSepecificValue(corlleatedCol, intValue)));
+
+						});
+						
+					}
+				}
+	}
+	
+	private boolean isRepot(String selctedCol, String corlleatedCol, int intValue) {
+		// TODO Auto-generated method stub
+		if (reports != null && reports.size() != 0) {
+			String discription = selctedCol + "-" +corlleatedCol;
+			for (AnomalyReport anomalyReport : reports) {
+				if (anomalyReport.description.equals(discription) && (int)anomalyReport.timeStep == intValue) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 	public void FilluntillNow(String selctedCol, Series seriesA) {
-		executor.execute(()->{
 			for (int i = 0; i < timeStep.intValue() && timeStep.intValue() < Test.NumOfRows; i++) {
 				final int j = i;
-				Platform.runLater(()->{
 					seriesA.getData().add(new XYChart.Data(String.valueOf(j),Test.getSepecificValue(selctedCol,j)));	
-				});
 			}
-		});
 }
 	
 }

@@ -95,6 +95,9 @@ public class WindowController {
 			else {
 				clearSeries(seriesCor);
 			}
+			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null) {
+				vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
+			}
 		});
 		
 		vm.testPath.addListener((o,ov,nv)->{
