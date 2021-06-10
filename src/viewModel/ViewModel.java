@@ -27,6 +27,7 @@ import model.AlgoLoader;
 import model.AnomalyReport;
 import model.FeatureSettings;
 import model.Model;
+import model.Point;
 import model.TimeSeries;
 import model.TimeSeriesAnomalyDetector;
 import model.XmlComplete;
@@ -287,6 +288,7 @@ public class ViewModel implements Observer
 			{
 				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6));
 				loadAnomalyAlgo("resources/"+chosen.getName(),algoName.getValue());
+				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6) + " ");
 				model.setAnomalyDetector(this.ad);
 				LearnData();
 				DetectAnomalies();
@@ -340,9 +342,17 @@ public class ViewModel implements Observer
 		});
 	}
 
-	public Series PaintAlgo(String selctedCol, String corlleatedCol) {
+	public void PaintAlgo(String selctedCol, String corlleatedCol,Series Algo) {
 		Series s = model.AlgoPaint(selctedCol,corlleatedCol);
-		return s;
+		if (s != null) {
+				for (int i = 0; i < s.getData().size(); i++) {
+					Algo.getData().add(s.getData().get(i));
+				}
+		}
+		else {
+			Algo.getData().clear();
+		}
+		
 	}
 	
 	public void LearnData() {model.learnData();}

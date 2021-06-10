@@ -181,8 +181,7 @@ public class WindowController {
 				if(vm.getAd()!=null && selectedCol!=null && corlleatedCol != null) {
 					clearSeries(seriesRegularFlight,seriesAlgo);
 					vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
-					graphs.AlgoChart.getData().remove(0);
-					graphs.AlgoChart.getData().add(0, vm.PaintAlgo(selectedCol, corlleatedCol));
+				    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
 				}
 			}
 			

@@ -146,14 +146,16 @@ public class LinearAnomalyDetector implements TimeSeriesAnomalyDetector {
 			return null;
 		}
 		Series s = new Series();
-		float xMax = ts.getMaxVal(a);
-		float xMin = ts.getMinVal(a);
+		String F1 = ts.getFeatureByName2(a).name_id;
+		String F2 = ts.getFeatureByName2(b).name_id;
+		float xMax = ts.getMaxVal(F1);
+		float xMin = ts.getMinVal(F2);
 		float yMax = line.f(xMax);
 		float yMin = line.f(xMin);
 		
-		s.getData().add(new XYChart.Data(xMin,yMin));
+		s.getData().add(new XYChart.Data(xMin, yMin));
 		s.getData().add(new XYChart.Data(xMax,yMax));
-		
+		//s.forEach(e -> System.out.println(e.x + " " + e.y));
 		return s;
 	}
 	
