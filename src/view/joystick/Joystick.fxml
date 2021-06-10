@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.hansolo.medusa.Gauge?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="494.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.JoystickController">
+	<!-- TODO Add Nodes -->
+	      <children>
+            <Circle fx:id="CanvasCircle" fill="#c6c6c7" layoutX="230.0" layoutY="90.0" radius="61.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="movingCircle" layoutX="230.0" layoutY="90.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+            <Slider fx:id="rudder" layoutX="160.0" layoutY="176.0" />
+            <Slider fx:id="throttle" layoutX="128.0" layoutY="24.0" orientation="VERTICAL" />
+     		<Gauge fx:id="DirectionValue" layoutX="302.0" layoutY="228.0" minMeasuredValue="10.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" title="Direction" />
+      		<Gauge fx:id="AltitudeValue" layoutX="156.0" layoutY="229.0" majorTickSpace="100.0" maxValue="1000.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" threshold="800.0" title="Altitude" />
+		    <Gauge fx:id="yawValue" layoutX="11.0" layoutY="229.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" title="Yaw" />
+		    <Gauge fx:id="speedValue" layoutX="9.0" layoutY="368.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" title="Speed" />
+		    <Gauge fx:id="PitchValue" layoutX="156.0" layoutY="368.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" title="Pitch" />
+		    <Gauge fx:id="RollValue" layoutX="302.0" layoutY="368.0" prefHeight="140.0" prefWidth="140.0" startFromZero="true" title="Roll" />
+      <Label layoutX="204.0" layoutY="198.0" prefHeight="18.0" prefWidth="64.0" text="Rudder" />
+      <Label layoutX="69.0" layoutY="85.0" prefHeight="18.0" prefWidth="64.0" text="Throttle" />
+         </children>
+</AnchorPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.openfiles.OpenfilesController">
+	<!-- TODO Add Nodes -->
+	<MenuBar layoutX="-5.0" layoutY="-4.0" prefHeight="44.0" prefWidth="1340.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openXMLFile" text="Load XML File" fx:id="xml" />
+                  <MenuItem fx:id="csv" mnemonicParsing="false" onAction="#openTrainCSVFile" text="Load Train CSV File" />
+               <MenuItem fx:id="csv1" mnemonicParsing="false" onAction="#openTestCsv" text="Load Test CSV File" />
+                  <MenuItem fx:id="algo" mnemonicParsing="false" onAction="#openCLASSFile" text="Load Algo File" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   <Button layoutX="954.0" layoutY="4.0" mnemonicParsing="false" onAction="#Connect" prefHeight="26.0" prefWidth="176.0" text="Fly Gear Conncection" />
+   <Button layoutX="1141.0" layoutY="4.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="186.0" text="Fly Gear Disconncection" />
+</AnchorPane>

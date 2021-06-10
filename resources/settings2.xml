@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_281" class="java.beans.XMLDecoder">
+ <object class="model.XmlSettings">
+  <void property="afs">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>aileron</string>
+      </void>
+      <void property="max">
+       <double>0.25</double>
+      </void>
+      <void property="min">
+       <double>-0.4</double>
+      </void>
+      <void property="real_col_name">
+       <string>aileron</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>elevator</string>
+      </void>
+      <void property="max">
+       <double>0.2</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>elevator</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>rudder</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>0.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>rudder</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>throttle</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>0.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>throttle</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>altimeter_indicated-altitude-ft</string>
+      </void>
+      <void property="max">
+       <double>851.0</double>
+      </void>
+      <void property="min">
+       <double>0.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>heigth</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>airspeed-indicator_indicated-speed-kt</string>
+      </void>
+      <void property="max">
+       <double>94.0</double>
+      </void>
+      <void property="min">
+       <double>0</double>
+      </void>
+      <void property="real_col_name">
+       <string>speed</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>indicated-heading-deg</string>
+      </void>
+      <void property="max">
+       <double>345.0</double>
+      </void>
+      <void property="min">
+       <double>89.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>direction</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>attitude-indicator_internal-roll-deg</string>
+      </void>
+      <void property="max">
+       <double>20.0</double>
+      </void>
+      <void property="min">
+       <double>-38.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>roll</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>attitude-indicator_internal-pitch-deg</string>
+      </void>
+      <void property="max">
+       <double>17.0</double>
+      </void>
+      <void property="min">
+       <double>-10.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>pitch</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>side-slip-deg</string>
+      </void>
+      <void property="max">
+       <double>90.0</double>
+      </void>
+      <void property="min">
+       <double>-29.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>yaw</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="host">
+   <string>localhost</string>
+  </void>
+  <void property="port">
+   <int>5400</int>
+  </void>
+  <void property="timeout">
+   <double>1.0</double>
+  </void>
+ </object>
+</java>
