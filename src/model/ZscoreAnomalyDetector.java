@@ -10,16 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
 public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 	ArrayList<Double> t_x = new ArrayList<Double>();
+	TimeSeries ts;
 
 //Preliminary stage - where we take a file of a normal flight and check for each characteristic
 	//his behavior during a normal flight
 	
 	@Override
 	public void learnNormal(TimeSeries ts) {
+		this.ts = ts;
 		for (TimeSeries.Feature f : ts.getTable()) {
 			double max = -1;
 			for (int i = 2; i < f.getSamples().size(); i++) {
@@ -74,8 +77,29 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 
 	@Override
 	public Series paint(String... strings) {
+		String f1 = strings[0];
+		System.out.println(f1);
+		int index = 0;
+		for (int i = 0; i < ts.getTable().size(); i++) {
+			if (ts.getTable().get(i).name.equals(f1)) {
+				index = i;
+			}
+		}
+		Series s = new Series();
+		int minx = 0;
+		int maxx = ts.NumOfRows;
+		double threshold = t_x.get(index);
+		
+		s.getData().add(new XYChart.Data(minx,threshold));
+		s.getData().add(new XYChart.Data(maxx,threshold));
+		return s;
+	}
+
+
+	@Override
+	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Zscore";
 	}
 
 }

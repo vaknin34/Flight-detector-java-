@@ -158,6 +158,12 @@ public class LinearAnomalyDetector implements TimeSeriesAnomalyDetector {
 		//s.forEach(e -> System.out.println(e.x + " " + e.y));
 		return s;
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Linear";
+	}
 	
 
 }

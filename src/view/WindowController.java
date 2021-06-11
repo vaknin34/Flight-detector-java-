@@ -1,7 +1,11 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,6 +35,7 @@ public class WindowController {
 	Series seriesAnomaliesPoints;
 	
 	String selectedCol,corlleatedCol;
+	
 	
 	public void init() {
 		ViewModel vm = new ViewModel();
@@ -62,6 +67,7 @@ public class WindowController {
 		seriesAnomaliesPoints.setName("Anomalies Points");
 		
 		
+		
 		graphs.Fchart.getData().add(seriesFeature);
 		graphs.CorChart.getData().add(seriesCor);
 		graphs.AlgoChart.getData().addAll(seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
@@ -74,13 +80,13 @@ public class WindowController {
 		vm.rate.bindBidirectional(buttons.videoSpeed.valueProperty());
 		buttons.timeSlider.valueProperty().bindBidirectional(vm.timeStep);		
 		buttons.videoTime.textProperty().bind(vm.videoTime);
-		buttons.timeSlider.valueProperty().addListener((o,ov,nv)->{
+		vm.timeStep.addListener((o,ov,nv)->{	
 			if(selectedCol!=null) {
 				if(ov.intValue()+1==nv.intValue()) 
-					vm.paintFeature(selectedCol, nv, seriesFeature);
+						vm.paintFeature(selectedCol, nv, seriesFeature);
 				else {
 					clearSeries(seriesFeature);
-				//	vm.FilluntillNow(selectedCol, seriesFeature);
+					vm.FilluntillNow(selectedCol, seriesFeature);
 				}
 			}
 			else {
@@ -95,9 +101,14 @@ public class WindowController {
 			else {
 				clearSeries(seriesCor);
 			}
-			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null) {
+			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
 				vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
 			}
+			else if (selectedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Zscore")) {
+				vm.PaintTestZscorePoints(selectedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
+			}
+			
+			
 		});
 		
 		vm.testPath.addListener((o,ov,nv)->{
@@ -175,17 +186,27 @@ public class WindowController {
 			corlleatedCol=vm.getCorllated(selectedCol);
 			if(corlleatedCol==null) {
 				graphs.CorChart.setTitle("");
-				clearSeries(seriesCor,seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
+				clearSeries(seriesCor);
 			}
 			else {
 				graphs.CorChart.setTitle(corlleatedCol);
 				seriesCor.getData().clear();
 				vm.FilluntillNow(corlleatedCol, seriesCor);
-				if(vm.getAd()!=null && selectedCol!=null && corlleatedCol != null) {
-					clearSeries(seriesRegularFlight,seriesAlgo);
-					vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
-				    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
-				}
+			}
+			if(vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
+				clearSeries(seriesRegularFlight,seriesAlgo);
+				vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
+			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
+			}
+			if(vm.getAd() != null && vm.getAd().getName().equals("Zscore")) {
+				clearSeries(seriesRegularFlight,seriesAlgo);
+				vm.PaintZscoreTrain(selectedCol,seriesRegularFlight);
+			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
+			}
+			if(vm.getAd() != null && vm.getAd().getName().equals("Hybrid")) {
+				clearSeries(seriesRegularFlight,seriesAlgo);
+				//vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
+			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
 			}
 			
 		});

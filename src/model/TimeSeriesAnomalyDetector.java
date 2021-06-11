@@ -12,4 +12,5 @@ public interface TimeSeriesAnomalyDetector {
 	void learnNormal(TimeSeries ts);
 	List<AnomalyReport> detect(TimeSeries ts);
 	Series  paint(String ...strings );
+	String getName();
 }

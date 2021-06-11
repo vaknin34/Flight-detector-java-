@@ -240,8 +240,16 @@ public class Model extends Observable {
 	}
 
 	public Series AlgoPaint(String...strings) {
-		String indexCol1 = Test.getFeatureByNameid(strings[0]).name;
-		String indexCol2 = Test.getFeatureByNameid(strings[1]).name;
+		String indexCol1;
+		String indexCol2 = null;
+		if (strings[0] != null && strings[1] != null) {
+			indexCol1 = Test.getFeatureByNameid(strings[0]).name;
+			indexCol2 = Test.getFeatureByNameid(strings[1]).name;
+		}
+		else {
+			indexCol1 = Test.getFeatureByNameid(strings[0]).name;
+		}
+		
 		return this.ad.paint(indexCol1,indexCol2);
 	}
 }

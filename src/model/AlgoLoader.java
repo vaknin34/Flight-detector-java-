@@ -47,5 +47,11 @@ public class AlgoLoader implements TimeSeriesAnomalyDetector{
 		return algo.paint(strings);
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return algo.getName();
+	}
+
 
 }

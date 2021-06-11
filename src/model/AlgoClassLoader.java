@@ -47,5 +47,11 @@ public class AlgoClassLoader implements FileLoader<String>,TimeSeriesAnomalyDete
 		return a.algo.paint(strings);
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return a.algo.getName();
+	}
+
 
 }

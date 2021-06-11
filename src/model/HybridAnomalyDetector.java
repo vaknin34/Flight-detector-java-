@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import model.TimeSeries.Feature;
 
@@ -15,11 +16,13 @@ public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 	HashMap<String, LinearAnomalyDetector> lin = new HashMap<>();
 	HashMap<String, ZscoreAnomalyDetector> zScore=new HashMap<>();
 	private Random rand = new Random();
+	TimeSeries ts;
 	
 //An algorithm that chooses according to a measure of correlation how to measure / behave -
 //according to the z-score algorithm or according to a linear regression algorithm
 	@Override
 	public void learnNormal(TimeSeries ts) {
+		this.ts = ts;
 		ArrayList<Point> points = new ArrayList<>();
 		
 		ArrayList<MatchFeature> mf = StatLib.FindMatch(ts,0).match;
@@ -171,7 +174,31 @@ public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 	@Override
 	public Series paint(String... strings) {
 		// TODO Auto-generated method stub
+		Series s= new Series();
+		String key = strings[0] + "-" + strings[1];
+		if (hybrid.containsKey(key)) {
+			for (int i = 0; i < ts.NumOfRows; i++) {
+				float x =  ts.getFeatureByName(strings[0]).get(i);
+				double y = Math.sqrt(Math.pow(hybrid.get(key).radius,2) - Math.pow((x-hybrid.get(key).center.x),2) - Math.pow((x-hybrid.get(key).center.y),2));
+				s.getData().add(new XYChart.Data(x,y));
+			}
+			return s;
+		}
+		else if (lin.containsKey(key)) {
+			s = lin.get(key).paint(strings);
+			return s;
+		}
+		else if (zScore.containsKey(key)) {
+			s = zScore.get(key).paint(strings);
+			return s;
+		}
 		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Hybrid";
 	}
 	
 

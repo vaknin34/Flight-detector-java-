@@ -2,6 +2,7 @@ package view;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.XmlComplete;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			XmlComplete xml = new XmlComplete();
+			xml.WriteXmlToUser();
 			FXMLLoader fxl = new FXMLLoader();
 			BorderPane root = fxl.load(getClass().getResource("Window.fxml").openStream());
 			WindowController wc = fxl.getController();

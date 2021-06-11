@@ -49,6 +49,7 @@ public class ViewModel implements Observer
 	TimeSeriesAnomalyDetector ad;
 	List<AnomalyReport> reports;
 	
+	
 	public Runnable Play,Pause,Stop,Forward,Backward,DoubleForward,DoubleBackward,connect,disconnect;
 	boolean cord =false;
 	
@@ -70,7 +71,6 @@ public class ViewModel implements Observer
 		DisplayVar = new HashMap<String, SimpleDoubleProperty>();
 		algoName=new SimpleStringProperty();
 		model.addObserver(this);
-		
 		
 		rate.addListener((o,ov,nv)->{
 			model.pause();
@@ -353,8 +353,13 @@ public class ViewModel implements Observer
 	
 	public void paintFeature(String selctedCol, Number nv,Series s) {
 			if (nv.intValue() < Test.NumOfRows) {
+				
+				float y = Test.getSepecificValue(selctedCol, nv.intValue());
 				Platform.runLater(()->{
-					s.getData().add(new XYChart.Data(String.valueOf(nv.intValue()),Test.getSepecificValue(selctedCol, nv.intValue())));
+					s.getData().add(new XYChart.Data(String.valueOf(nv.intValue()),y));
+					/*if (s.getData().size() > 50) {
+						s.getData().remove(0);
+					}*/
 					
 				});
 						
@@ -397,6 +402,21 @@ public class ViewModel implements Observer
 		return false;
 	}
 	
+	private boolean isRepotZscore(String selctedCol, int intValue) {
+		// TODO Auto-generated method stub
+		
+		if (reports != null && reports.size() != 0) {
+			String discription = selctedCol;
+			for (AnomalyReport anomalyReport : reports) {
+				if (anomalyReport.description.equals(discription) && (int)anomalyReport.timeStep == intValue) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	public void FilluntillNow(String selctedCol, Series seriesA) {
 			for (int i = 0; i < timeStep.intValue() && timeStep.intValue() < Test.NumOfRows; i++) {
@@ -404,5 +424,38 @@ public class ViewModel implements Observer
 					seriesA.getData().add(new XYChart.Data(String.valueOf(j),Test.getSepecificValue(selctedCol,j)));	
 			}
 }
+
+	public void PaintZscoreTrain(String selectedCol, Series seriesRegularFlight) {
+		for (int i = 0; i < Train.NumOfRows; i++) {
+			float y1 = Train.getSepecificValue(selectedCol, i);
+			seriesRegularFlight.getData().add(new XYChart.Data(i,y1));
+		}
+		
+	}
+
+	public void PaintTestZscorePoints(String selectedCol, int intValue, Series seriesAnomaliesFlight,Series seriesAnomaliesPoints) {
+		if (intValue < Test.NumOfRows) {
+			if (!isRepotZscore(selectedCol,intValue)) {
+				Platform.runLater(()->{
+					seriesAnomaliesFlight.getData().add(new XYChart.Data(intValue,Test.getSepecificValue(selectedCol, intValue)));
+				});
+				if (seriesAnomaliesFlight.getData().size() > 20) {
+					Platform.runLater(()->{
+						seriesAnomaliesFlight.getData().remove(0);
+						seriesAnomaliesPoints.getData().clear();
+					});
+				}
+			}
+			else {
+				Platform.runLater(()->{
+					seriesAnomaliesPoints.getData().add(new XYChart.Data(intValue,Test.getSepecificValue(selectedCol, intValue)));
+
+				});
+				
+			}
+		}
+		
+		
+	}
 	
 }
