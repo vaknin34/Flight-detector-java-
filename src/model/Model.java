@@ -57,9 +57,6 @@ public class Model extends Observable {
 					@Override
 					public void run() {
 						if(flagConnect) {
-							System.out.println("here");
-							System.out.println("sending row "+timeStep.get());
-							System.out.println("rate: "+rate);
 							if(timeStep.getValue()+1>Test.NumOfRows) {
 								stop();
 							}
@@ -129,7 +126,7 @@ public class Model extends Observable {
 	
 	/*----------------------Getting and Setting--------------------*/
 	
-	public void setRate(double rate) { this.rate=(int) (100/rate); System.out.println("change");}
+	public void setRate(double rate) { this.rate=(int) (100/rate);}
 	public int getRate() {return this.rate;}
 	
 	public void setAlieron(double value) {this.aileron=value; this.setChanged(); this.notifyObservers("aileron");}

@@ -288,13 +288,14 @@ public class ViewModel implements Observer
 			{
 				String path  = chosen.getPath().substring(0, 27);
 				String fixPath =  FixPath(path);
-				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6));
-				loadAnomalyAlgo(fixPath,algoName.getValue());
-				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6) + " ");
-				model.setAnomalyDetector(this.ad);
-				LearnData();
-				reports =  DetectAnomalies();
-				
+				String name ="model."+chosen.getName().substring(0, chosen.getName().length()-6);
+				loadAnomalyAlgo(fixPath,name);
+				algoName.set(name);
+				if (this.ad != null) {
+					model.setAnomalyDetector(this.ad);
+					LearnData();
+					reports =  DetectAnomalies();
+				}
 			}
 		}
 		else {

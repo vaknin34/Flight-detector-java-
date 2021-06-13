@@ -85,7 +85,10 @@ public class WindowController {
 		buttons.videoTime.textProperty().bind(vm.videoTime);
 		vm.timeStep.addListener((o,ov,nv)->{
 			if (nv.intValue() == vm.getTest().NumOfRows) {
-				clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
+				if(Thread.currentThread().getName().equals("JavaFx Application Thread"))
+					clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
+				else
+					Platform.runLater(()->clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight));
 			}
 			if(selectedCol!=null) {
 				if(ov.intValue()+1==nv.intValue()) 
@@ -107,7 +110,8 @@ public class WindowController {
 				}
 			}
 			else {
-				clearSeries(seriesCor);
+				if(Thread.currentThread().getName().equals("JavaFx Application Thread"))
+					clearSeries(seriesCor);
 			}
 			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
 				vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
@@ -171,8 +175,8 @@ public class WindowController {
 		});
 		vm.algoName.addListener((o,ov,nv)->{
 			if(vm.getAd()!=null) {
-				graphs.AlgoChart.setTitle(nv.substring(6));
-			
+				if(nv.length() > 6)
+					graphs.AlgoChart.setTitle(nv.substring(6));
 			}
 		});
 		joystick.aileron.addListener((o,ov,nv)->{
@@ -241,7 +245,10 @@ public class WindowController {
 			}
 			if(vm.getAd() != null && vm.getAd().getName().equals("Hybrid")) {
 				clearSeries(seriesRegularFlight,seriesAlgo);
-				vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
+				if((selectedCol!=null&&corlleatedCol==null) || (selectedCol!=null && corlleatedCol!=null &&vm.getCoraleted(selectedCol,corlleatedCol)<0.5))
+					vm.PaintZscoreTrain(selectedCol, seriesFeature);
+				else if((selectedCol!=null && corlleatedCol!=null &&vm.getCoraleted(selectedCol,corlleatedCol)>=0.5))
+					vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
 			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
 			}
 			
