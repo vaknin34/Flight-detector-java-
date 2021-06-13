@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.Chart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.MultipleSelectionModel;
 import view.viewlist.Viewlist;
 import viewModel.ViewModel;
 import view.openfiles.Openfiles;
@@ -97,10 +98,10 @@ public class WindowController {
 					clearSeries(seriesFeature);
 					vm.FilluntillNow(selectedCol, seriesFeature);
 				}
-			}
-			else {
-				clearSeries(seriesFeature);
-			}
+			
+				else
+					clearSeries(seriesFeature);
+			
 			if(corlleatedCol!=null) {
 				if(ov.intValue()+1==nv.intValue())
 					vm.paintFeature(corlleatedCol, nv, seriesCor);
@@ -112,7 +113,7 @@ public class WindowController {
 			else {
 				if(Thread.currentThread().getName().equals("JavaFx Application Thread"))
 					clearSeries(seriesCor);
-			}
+				}
 			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
 				vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
  			}
@@ -127,7 +128,7 @@ public class WindowController {
 					
 			}
 			
-			
+			}
 		});
 		
 		vm.testPath.addListener((o,ov,nv)->{
@@ -175,8 +176,15 @@ public class WindowController {
 		});
 		vm.algoName.addListener((o,ov,nv)->{
 			if(vm.getAd()!=null) {
-				if(nv.length() > 6)
+				if(nv.length() > 6) {
 					graphs.AlgoChart.setTitle(nv.substring(6));
+					if(viewlist.list.getSelectionModel()!=null) {
+						String index =viewlist.list.getSelectionModel().getSelectedItem();
+						viewlist.list.selectionModelProperty().get().clearSelection();
+						//clearSeries(seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
+						//viewlist.list.selectionModelProperty().get().select(index);
+					}
+				}
 			}
 		});
 		joystick.aileron.addListener((o,ov,nv)->{
@@ -212,6 +220,7 @@ public class WindowController {
 			graphs.FchartY.setTickUnit(10);
 			
 			graphs.Fchart.setTitle(selectedCol);
+			if(selectedCol!=null) {
 			vm.FilluntillNow(selectedCol, seriesFeature);
 			corlleatedCol=vm.getCorllated(selectedCol);
 			if(corlleatedCol==null) {
@@ -251,7 +260,7 @@ public class WindowController {
 					vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
 			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
 			}
-			
+			}
 		});
 		
 	}

@@ -13,5 +13,7 @@ public class GraphsController {
 	@FXML NumberAxis FchartY;
 	@FXML NumberAxis CorxAxis;
 	@FXML NumberAxis CoryAxis;
+	@FXML NumberAxis algoAxisX;
+	@FXML NumberAxis algoAxisY;
 
 }

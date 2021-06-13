@@ -18,6 +18,8 @@ public class Graphs extends AnchorPane
 	public NumberAxis FchartY;
 	public NumberAxis CorxAxis;
 	public NumberAxis CoryAxis;
+	public NumberAxis algoAxisY;
+	public NumberAxis algoAxisX;
 	
 	public Graphs() 
 	{
@@ -36,6 +38,8 @@ public class Graphs extends AnchorPane
 			FchartY = controller.FchartY;
 			CorxAxis = controller.CorxAxis;
 			CoryAxis = controller.CoryAxis;
+			algoAxisX = controller.algoAxisX;
+			algoAxisY = controller.algoAxisY;
 			this.getChildren().add(ap);
 		}
 		else
