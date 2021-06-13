@@ -10,6 +10,9 @@ import java.util.Observer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import com.sun.javafx.geom.AreaOp.XorOp;
+
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -356,7 +359,7 @@ public class ViewModel implements Observer
 				
 				float y = Test.getSepecificValue(selctedCol, nv.intValue());
 				Platform.runLater(()->{
-					s.getData().add(new XYChart.Data(String.valueOf(nv.intValue()),y));
+					s.getData().add(new XYChart.Data(nv.intValue(),y));
 					/*if (s.getData().size() > 50) {
 						s.getData().remove(0);
 					}*/
@@ -421,7 +424,7 @@ public class ViewModel implements Observer
 	public void FilluntillNow(String selctedCol, Series seriesA) {
 			for (int i = 0; i < timeStep.intValue() && timeStep.intValue() < Test.NumOfRows; i++) {
 				final int j = i;
-					seriesA.getData().add(new XYChart.Data(String.valueOf(j),Test.getSepecificValue(selctedCol,j)));	
+					seriesA.getData().add(new XYChart.Data(j,Test.getSepecificValue(selctedCol,j)));	
 			}
 }
 
@@ -456,6 +459,10 @@ public class ViewModel implements Observer
 		}
 		
 		
+	}
+
+	public double getCoraleted(String selectedCol, String corlleatedCol) {
+		return model.getCoraletion(selectedCol,corlleatedCol);
 	}
 	
 }

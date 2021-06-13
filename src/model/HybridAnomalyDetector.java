@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
+import javafx.geometry.Point2D;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import model.TimeSeries.Feature;
@@ -176,12 +177,38 @@ public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 		// TODO Auto-generated method stub
 		Series s= new Series();
 		String key = strings[0] + "-" + strings[1];
+		
 		if (hybrid.containsKey(key)) {
+			/*
 			for (int i = 0; i < ts.NumOfRows; i++) {
 				float x =  ts.getFeatureByName(strings[0]).get(i);
-				double y = Math.sqrt(Math.pow(hybrid.get(key).radius,2) - Math.pow((x-hybrid.get(key).center.x),2) - Math.pow((x-hybrid.get(key).center.y),2));
+				float xcenter = hybrid.get(key).center.x;
+				float ycenter = hybrid.get(key).center.y;
+				float radius = hybrid.get(key).radius;
+				//double y = Math.sqrt(Math.pow(hybrid.get(key).radius,2) - Math.pow((x-hybrid.get(key).center.x),2) - Math.pow((x-hybrid.get(key).center.y),2));
+				double y = ycenter + Math.sqrt(radius * radius - ((x -xcenter) *(x -xcenter))  );
+				double negy = y *(-1);
 				s.getData().add(new XYChart.Data(x,y));
+				s.getData().add(new XYChart.Data(x,negy));
+				}
+				*/
+			float xcenter = hybrid.get(key).center.x;
+			float ycenter = hybrid.get(key).center.y;
+			float radius = hybrid.get(key).radius;
+			javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle(xcenter, ycenter, radius);
+			ArrayList<Point> points=new ArrayList<Point>();
+			for(double angle=0;angle<360;angle+=0.5)
+			{
+				float x=(float) (radius*Math.cos(angle)+xcenter);
+				float y=(float) (radius*Math.sin(angle)+ycenter);
+				points.add(new Point(x, y));
 			}
+			
+			for (Point point : points) {
+				s.getData().add(new XYChart.Data(point.x, point.y));
+			}
+			
+			
 			return s;
 		}
 		else if (lin.containsKey(key)) {

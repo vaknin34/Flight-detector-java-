@@ -5,8 +5,9 @@
 .default-color3.chart-series-line { -fx-stroke: transparent; }
 
 
+
 .default-color1.chart-line-symbol {
-    -fx-background-color: #EEEEEE, gray;
+    -fx-background-color: #EEEEEE,grey;
     -fx-background-radius: 0;
     -fx-background-insets: 0;
     -fx-shape: "M5,0 L10,8 L0,8 Z";
@@ -21,7 +22,7 @@
 
 
 .default-color0.chart-line-symbol {
-    -fx-background-color: transparent, transparent;
+    -fx-background-color: transparent,transparent;
 }
 .default-color1.chart-legend-item-symbol{
     -fx-background-color: gray;
@@ -35,5 +36,6 @@
 .default-color3.chart-legend-item-symbol{
     -fx-background-color: red;
 }
+
 
 

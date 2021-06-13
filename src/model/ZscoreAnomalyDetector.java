@@ -87,7 +87,7 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 		}
 		Series s = new Series();
 		int minx = 0;
-		int maxx = ts.NumOfRows;
+		int maxx = ts.getTable().get(0).size;
 		double threshold = t_x.get(index);
 		
 		s.getData().add(new XYChart.Data(minx,threshold));

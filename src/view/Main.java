@@ -19,7 +19,7 @@ public class Main extends Application {
 			WindowController wc = fxl.getController();
 			wc.init();
 			
-			Scene scene = new Scene(root,1340,700);
+			Scene scene = new Scene(root,1340,750);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

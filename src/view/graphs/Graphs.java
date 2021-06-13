@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.AnchorPane;
 
 public class Graphs extends AnchorPane
@@ -13,6 +14,10 @@ public class Graphs extends AnchorPane
 	public LineChart AlgoChart;
 	public LineChart CorChart;
 	public LineChart Fchart;
+	public NumberAxis FchartX;
+	public NumberAxis FchartY;
+	public NumberAxis CorxAxis;
+	public NumberAxis CoryAxis;
 	
 	public Graphs() 
 	{
@@ -27,6 +32,10 @@ public class Graphs extends AnchorPane
 			Fchart=controller.FeatureChart;
 			CorChart=controller.CorrelatedChart;
 			AlgoChart=controller.algoChart;
+			FchartX = controller.FchartX;
+			FchartY = controller.FchartY;
+			CorxAxis = controller.CorxAxis;
+			CoryAxis = controller.CoryAxis;
 			this.getChildren().add(ap);
 		}
 		else

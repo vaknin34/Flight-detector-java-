@@ -105,7 +105,7 @@ public class StatLib {
 		MatchFeature mf = null ;
 		for (int i = 0; i < ts.getTable().size(); i++) {
 			TimeSeries.Feature f1 = ts.getTable().get(i);
-			for (int j = i+1; j < ts.getTable().size()-1; j++) {
+			for (int j = i+1; j < ts.getTable().size(); j++) {
 				if (i != j) {
 					TimeSeries.Feature f2 = ts.getTable().get(j);
 					float cor = Math.abs(pearson(al_to_fl(f1.getSamples()), al_to_fl(f2.getSamples())));

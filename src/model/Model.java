@@ -252,4 +252,10 @@ public class Model extends Observable {
 		
 		return this.ad.paint(indexCol1,indexCol2);
 	}
+
+	public double getCoraletion(String selectedCol, String corlleatedCol) {
+		float p = StatLib.pearson(StatLib.al_to_fl(Train.getFeatureByNameid(selectedCol).samples), 
+					StatLib.al_to_fl(Train.getFeatureByNameid(corlleatedCol).samples));
+		return Math.abs(p);
+	}
 }

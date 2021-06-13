@@ -69,8 +69,11 @@ public class WindowController {
 		
 		
 		graphs.Fchart.getData().add(seriesFeature);
+		graphs.Fchart.setAnimated(false);
 		graphs.CorChart.getData().add(seriesCor);
+		graphs.CorChart.setAnimated(false);
 		graphs.AlgoChart.getData().addAll(seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
+		graphs.AlgoChart.setAnimated(false);
 		
 		selectedCol=null;
 		corlleatedCol=null;
@@ -103,9 +106,16 @@ public class WindowController {
 			}
 			if (selectedCol != null && corlleatedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
 				vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
-			}
+ 			}
 			else if (selectedCol != null && vm.getAd() != null && vm.getAd().getName().equals("Zscore")) {
 				vm.PaintTestZscorePoints(selectedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
+			}
+			else if(vm.getAd() != null && vm.getAd().getName().equals("Hybrid")) {
+				if((selectedCol!=null&&corlleatedCol==null) || (selectedCol!=null && corlleatedCol!=null &&vm.getCoraleted(selectedCol,corlleatedCol)<0.5))
+					vm.PaintTestZscorePoints(selectedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
+				else if((selectedCol!=null && corlleatedCol!=null &&vm.getCoraleted(selectedCol,corlleatedCol)>=0.5))
+					vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
+					
 			}
 			
 			
@@ -181,6 +191,17 @@ public class WindowController {
 		viewlist.list.getSelectionModel().selectedItemProperty().addListener((o,ov,nv)->{
 			clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
 			selectedCol=nv;
+			
+			graphs.FchartX.setUpperBound(vm.getTest().NumOfRows);
+			graphs.FchartX.setLowerBound(0);
+			graphs.FchartX.setAutoRanging(false);
+			graphs.FchartX.setTickUnit(10);
+			
+			graphs.FchartY.setUpperBound((int)vm.getTest().getMaxVal(selectedCol)+1);
+			graphs.FchartY.setLowerBound((int)vm.getTest().getMinVal(selectedCol)-1);
+			graphs.FchartY.setAutoRanging(false);
+			graphs.FchartY.setTickUnit(10);
+			
 			graphs.Fchart.setTitle(selectedCol);
 			vm.FilluntillNow(selectedCol, seriesFeature);
 			corlleatedCol=vm.getCorllated(selectedCol);
@@ -189,11 +210,21 @@ public class WindowController {
 				clearSeries(seriesCor);
 			}
 			else {
+				graphs.CorxAxis.setUpperBound(vm.getTest().NumOfRows);
+				graphs.CorxAxis.setLowerBound(0);
+				graphs.CorxAxis.setAutoRanging(false);
+				graphs.CorxAxis.setTickUnit(10);
+				
+				graphs.CoryAxis.setUpperBound((int)vm.getTest().getMaxVal(corlleatedCol)+1);
+				graphs.CoryAxis.setLowerBound((int)vm.getTest().getMinVal(corlleatedCol)-1);
+				graphs.CoryAxis.setAutoRanging(false);
+				graphs.CoryAxis.setTickUnit(10);
+				
 				graphs.CorChart.setTitle(corlleatedCol);
-				seriesCor.getData().clear();
+				clearSeries(seriesCor);
 				vm.FilluntillNow(corlleatedCol, seriesCor);
 			}
-			if(vm.getAd() != null && vm.getAd().getName().equals("Linear")) {
+			if(vm.getAd() != null && corlleatedCol != null && vm.getAd().getName().equals("Linear")) {
 				clearSeries(seriesRegularFlight,seriesAlgo);
 				vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
 			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
@@ -205,7 +236,7 @@ public class WindowController {
 			}
 			if(vm.getAd() != null && vm.getAd().getName().equals("Hybrid")) {
 				clearSeries(seriesRegularFlight,seriesAlgo);
-				//vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
+				vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
 			    vm.PaintAlgo(selectedCol, corlleatedCol,seriesAlgo);
 			}
 			
