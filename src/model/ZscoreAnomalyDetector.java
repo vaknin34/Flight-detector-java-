@@ -78,7 +78,6 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 	@Override
 	public Series paint(String... strings) {
 		String f1 = strings[0];
-		System.out.println(f1);
 		int index = 0;
 		for (int i = 0; i < ts.getTable().size(); i++) {
 			if (ts.getTable().get(i).name.equals(f1)) {

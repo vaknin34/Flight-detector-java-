@@ -83,11 +83,14 @@ public class WindowController {
 		vm.rate.bindBidirectional(buttons.videoSpeed.valueProperty());
 		buttons.timeSlider.valueProperty().bindBidirectional(vm.timeStep);		
 		buttons.videoTime.textProperty().bind(vm.videoTime);
-		vm.timeStep.addListener((o,ov,nv)->{	
+		vm.timeStep.addListener((o,ov,nv)->{
+			if (nv.intValue() == vm.getTest().NumOfRows) {
+				clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
+			}
 			if(selectedCol!=null) {
 				if(ov.intValue()+1==nv.intValue()) 
 						vm.paintFeature(selectedCol, nv, seriesFeature);
-				else {
+				else if(nv.intValue() != 0) {
 					clearSeries(seriesFeature);
 					vm.FilluntillNow(selectedCol, seriesFeature);
 				}
@@ -98,8 +101,10 @@ public class WindowController {
 			if(corlleatedCol!=null) {
 				if(ov.intValue()+1==nv.intValue())
 					vm.paintFeature(corlleatedCol, nv, seriesCor);
-				else
+				else if(nv.intValue() != 0) {
 					clearSeries(seriesCor);
+					vm.FilluntillNow(corlleatedCol, seriesCor);
+				}
 			}
 			else {
 				clearSeries(seriesCor);
@@ -245,7 +250,7 @@ public class WindowController {
 	}
 	public void clearSeries(Series...series) {
 		for (Series s : series) {
-			s.getData().clear();
+				s.getData().clear();
 		}
 	}
 	

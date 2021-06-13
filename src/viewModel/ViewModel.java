@@ -280,18 +280,21 @@ public class ViewModel implements Observer
 		if (Test!= null) {
 			FileChooser fc = new FileChooser();
 			fc.setTitle("File Choose");
-			fc.setInitialDirectory(new File("./bin/Model"));
+			fc.setInitialDirectory(new File("./Algorithms/"));
 			ExtensionFilter ef = new ExtensionFilter("Class Files (*.class)","*.class");
 			fc.getExtensionFilters().add(ef);
 			File chosen = fc.showOpenDialog(null);
 			if(chosen!=null)
 			{
+				String path  = chosen.getPath().substring(0, 27);
+				String fixPath =  FixPath(path);
 				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6));
-				loadAnomalyAlgo("resources/"+chosen.getName(),algoName.getValue());
+				loadAnomalyAlgo(fixPath,algoName.getValue());
 				algoName.set("model."+chosen.getName().substring(0, chosen.getName().length()-6) + " ");
 				model.setAnomalyDetector(this.ad);
 				LearnData();
 				reports =  DetectAnomalies();
+				
 			}
 		}
 		else {
@@ -302,6 +305,17 @@ public class ViewModel implements Observer
 		}
 	}
 	
+	private String FixPath(String path) {
+
+		String s = "";
+		for (char c : path.toCharArray()) {
+			if (c == '\\') {
+				s += '/' ;
+			}else {s += c ;}
+		}
+		return s;
+	}
+
 	protected void loadAnomalyAlgo(String p, String name) {
 		try {
 			this.ad = new AlgoLoader(p, name).getAlgo();

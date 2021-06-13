@@ -34,7 +34,7 @@
     -fx-background-color: blue;
 }
 .default-color3.chart-legend-item-symbol{
-    -fx-background-color: red;
+    -fx-background-color: red,red;
 }
 
 
