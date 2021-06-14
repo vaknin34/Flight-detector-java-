@@ -85,6 +85,8 @@ public class WindowController {
 		buttons.timeSlider.valueProperty().bindBidirectional(vm.timeStep);		
 		buttons.videoTime.textProperty().bind(vm.videoTime);
 		vm.timeStep.addListener((o,ov,nv)->{
+			if(nv.intValue()==0)
+				clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature);
 			if (nv.intValue() == vm.getTest().NumOfRows) {
 				if(Thread.currentThread().getName().equals("JavaFx Application Thread"))
 					clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
@@ -218,6 +220,7 @@ public class WindowController {
 			graphs.FchartY.setLowerBound((int)vm.getTest().getMinVal(selectedCol)-1);
 			graphs.FchartY.setAutoRanging(false);
 			graphs.FchartY.setTickUnit(10);
+			
 			
 			graphs.Fchart.setTitle(selectedCol);
 			if(selectedCol!=null) {
