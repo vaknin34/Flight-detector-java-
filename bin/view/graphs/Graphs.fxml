@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="574.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphs.GraphsController">
 	<!-- TODO Add Nodes -->
          <children>
-            <LineChart fx:id="CorrelatedChart" layoutX="301.0" layoutY="31.0" prefHeight="212.0" prefWidth="309.0">
+            <LineChart fx:id="CorrelatedChart" layoutX="301.0" layoutY="41.0" prefHeight="226.0" prefWidth="310.0">
               <xAxis>
                 <NumberAxis fx:id="CorxAxis" side="BOTTOM" />
               </xAxis>
@@ -15,7 +15,7 @@
                 <NumberAxis fx:id="CoryAxis" side="LEFT" />
               </yAxis>
             </LineChart>
-            <LineChart fx:id="FeatureChart" layoutX="14.0" layoutY="38.0" prefHeight="205.0" prefWidth="266.0">
+            <LineChart fx:id="FeatureChart" layoutY="41.0" prefHeight="226.0" prefWidth="310.0">
                <xAxis>
                   <NumberAxis fx:id="FchartX" side="BOTTOM" />
                </xAxis>
@@ -23,7 +23,7 @@
                   <NumberAxis fx:id="FchartY" side="LEFT" />
                </yAxis>
             </LineChart>
-      <LineChart fx:id="algoChart" layoutX="186.0" layoutY="249.0" prefHeight="300.0" prefWidth="300.0">
+      <LineChart fx:id="algoChart" layoutX="154.0" layoutY="273.0" prefHeight="326.0" prefWidth="330.0">
         <xAxis>
           <NumberAxis fx:id="algoAxisX" side="BOTTOM" />
         </xAxis>

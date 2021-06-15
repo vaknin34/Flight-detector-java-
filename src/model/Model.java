@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Function;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -67,8 +68,6 @@ public class Model extends Observable {
 							}
 						}
 						else {
-							//System.out.println("sending row "+timeStep.get());
-							//System.out.println("rate: "+rate);
 							if(timeStep.getValue()+1>Test.NumOfRows) {
 								stop();
 							}else {

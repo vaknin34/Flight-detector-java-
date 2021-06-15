@@ -21,15 +21,18 @@ public class ButtonsController
 	@FXML Slider videoSlider;
 	@FXML Label VideoTime;
 	
-	public Runnable onPlay,onPause,onStop,onForward,onBackward,onDoubleForward,onDoubleBackward;
+	public Runnable onPlay,onPause,onStop,onForward,onBackward,onDoubleForward,onDoubleBackward,clearGraphs,clearSelect;
 	
 	@FXML public void SkipbackwardDouble() {if(onDoubleBackward!=null) onDoubleBackward.run();}
 	@FXML public void Skipbackward() {if(onBackward!=null) onBackward.run();}
 	@FXML public void startFlight() {if(onPlay!=null) onPlay.run();}
 	@FXML public void pauseFlight() {if(onPause!=null) onPause.run();}
-	@FXML public void stopFlight() {if(onStop!=null) onStop.run();}
+	@FXML public void stopFlight() {if(onStop!=null) onStop.run(); 
+									if(clearGraphs!=null)clearGraphs.run();
+									if(clearSelect!=null) clearSelect.run();}
 	@FXML public void SkipForward() {if(onForward!=null) onForward.run();}
 	@FXML public void SkipForwardDouble() {if(onDoubleForward!=null) onDoubleForward.run();}
+
 	
 
 }

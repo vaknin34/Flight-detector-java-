@@ -44,6 +44,8 @@ public class WindowController {
 		buttons.controller.onPlay=vm.Play;
 		buttons.controller.onPause=vm.Pause;
 		buttons.controller.onStop=vm.Stop;
+		buttons.controller.clearGraphs=()->clearSeries(seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature);
+		buttons.controller.clearSelect=()->viewlist.list.getSelectionModel().clearSelection();
 		buttons.controller.onForward=vm.Forward;
 		buttons.controller.onDoubleForward=vm.DoubleForward;
 		buttons.controller.onBackward=vm.Backward;
@@ -57,7 +59,9 @@ public class WindowController {
 		openfiles.controller.testCSVFile=()->vm.openTestCsv();
 		
 		seriesFeature = new Series();
+		seriesFeature.setName("Feature");
 		seriesCor = new Series();
+		seriesCor.setName("Correlated");;
 		seriesAlgo = new Series();
 		seriesAlgo.setName("Anomaly Algo");
 		seriesRegularFlight = new Series();
@@ -72,6 +76,7 @@ public class WindowController {
 		graphs.Fchart.getData().add(seriesFeature);
 		graphs.Fchart.setAnimated(false);
 		graphs.CorChart.getData().add(seriesCor);
+		
 		graphs.CorChart.setAnimated(false);
 		graphs.AlgoChart.getData().addAll(seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
 		graphs.AlgoChart.setAnimated(false);
@@ -84,9 +89,8 @@ public class WindowController {
 		vm.rate.bindBidirectional(buttons.videoSpeed.valueProperty());
 		buttons.timeSlider.valueProperty().bindBidirectional(vm.timeStep);		
 		buttons.videoTime.textProperty().bind(vm.videoTime);
+		
 		vm.timeStep.addListener((o,ov,nv)->{
-			if(nv.intValue()==0)
-				clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature);
 			if (nv.intValue() == vm.getTest().NumOfRows) {
 				if(Thread.currentThread().getName().equals("JavaFx Application Thread"))
 					clearSeries(seriesAlgo,seriesAnomaliesFlight,seriesAnomaliesPoints,seriesCor,seriesFeature,seriesRegularFlight);
@@ -102,7 +106,7 @@ public class WindowController {
 				}
 			
 				else
-					clearSeries(seriesFeature);
+					Platform.runLater(()->clearSeries(seriesFeature));
 			
 			if(corlleatedCol!=null) {
 				if(ov.intValue()+1==nv.intValue())
@@ -129,7 +133,13 @@ public class WindowController {
 					vm.PaintTestPoints(selectedCol, corlleatedCol, nv.intValue(),seriesAnomaliesFlight ,seriesAnomaliesPoints);
 					
 			}
-			
+			if(nv.intValue()==0) {
+				Platform.runLater(()->{
+					viewlist.list.getSelectionModel().clearSelection();
+					graphs.CorChart.setTitle(null);
+				});
+				
+			}
 			}
 		});
 		
@@ -183,8 +193,7 @@ public class WindowController {
 					if(viewlist.list.getSelectionModel()!=null) {
 						String index =viewlist.list.getSelectionModel().getSelectedItem();
 						viewlist.list.selectionModelProperty().get().clearSelection();
-						//clearSeries(seriesAlgo,seriesRegularFlight,seriesAnomaliesFlight,seriesAnomaliesPoints);
-						//viewlist.list.selectionModelProperty().get().select(index);
+						graphs.CorChart.setTitle(null);
 					}
 				}
 			}
@@ -224,27 +233,27 @@ public class WindowController {
 			
 			graphs.Fchart.setTitle(selectedCol);
 			if(selectedCol!=null) {
-			vm.FilluntillNow(selectedCol, seriesFeature);
-			corlleatedCol=vm.getCorllated(selectedCol);
-			if(corlleatedCol==null) {
-				graphs.CorChart.setTitle("");
-				clearSeries(seriesCor);
-			}
-			else {
-				graphs.CorxAxis.setUpperBound(vm.getTest().NumOfRows);
-				graphs.CorxAxis.setLowerBound(0);
-				graphs.CorxAxis.setAutoRanging(false);
-				graphs.CorxAxis.setTickUnit(10);
-				
-				graphs.CoryAxis.setUpperBound((int)vm.getTest().getMaxVal(corlleatedCol)+1);
-				graphs.CoryAxis.setLowerBound((int)vm.getTest().getMinVal(corlleatedCol)-1);
-				graphs.CoryAxis.setAutoRanging(false);
-				graphs.CoryAxis.setTickUnit(10);
-				
-				graphs.CorChart.setTitle(corlleatedCol);
-				clearSeries(seriesCor);
-				vm.FilluntillNow(corlleatedCol, seriesCor);
-			}
+				vm.FilluntillNow(selectedCol, seriesFeature);
+				corlleatedCol=vm.getCorllated(selectedCol);
+				if(corlleatedCol==null) {
+					graphs.CorChart.setTitle("");
+					clearSeries(seriesCor);
+				}
+				else {
+					graphs.CorxAxis.setUpperBound(vm.getTest().NumOfRows);
+					graphs.CorxAxis.setLowerBound(0);
+					graphs.CorxAxis.setAutoRanging(false);
+					graphs.CorxAxis.setTickUnit(10);
+					
+					graphs.CoryAxis.setUpperBound((int)vm.getTest().getMaxVal(corlleatedCol)+1);
+					graphs.CoryAxis.setLowerBound((int)vm.getTest().getMinVal(corlleatedCol)-1);
+					graphs.CoryAxis.setAutoRanging(false);
+					graphs.CoryAxis.setTickUnit(10);
+					
+					graphs.CorChart.setTitle(corlleatedCol);
+					clearSeries(seriesCor);
+					vm.FilluntillNow(corlleatedCol, seriesCor);
+				}
 			if(vm.getAd() != null && corlleatedCol != null && vm.getAd().getName().equals("Linear")) {
 				clearSeries(seriesRegularFlight,seriesAlgo);
 				vm.PaintTrainPoints(selectedCol,corlleatedCol,seriesRegularFlight);
@@ -265,6 +274,7 @@ public class WindowController {
 			}
 			}
 		});
+		
 		
 	}
 	public void clearSeries(Series...series) {
