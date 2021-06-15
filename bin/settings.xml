@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_281" class="java.beans.XMLDecoder">
+ <object class="model.XmlSettings">
+  <void property="afs">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>aileron</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>elevator</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>rudder</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>throttle</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>height</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>speed</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>direction</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>roll</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>pitch</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.FeatureSettings">
+      <void property="assosicate_name">
+       <string>enter name in CSV file(Assosicate_name)</string>
+      </void>
+      <void property="max">
+       <double>1.0</double>
+      </void>
+      <void property="min">
+       <double>-1.0</double>
+      </void>
+      <void property="real_col_name">
+       <string>yaw</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="host">
+   <string>localhost</string>
+  </void>
+  <void property="port">
+   <int>5400</int>
+  </void>
+  <void property="timeout">
+   <double>10.0</double>
+  </void>
+ </object>
+</java>

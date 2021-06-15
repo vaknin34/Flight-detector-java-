@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="494.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.JoystickController">
+<AnchorPane prefHeight="494.0" prefWidth="453.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="view.joystick.JoystickController">
 	<!-- TODO Add Nodes -->
 	      <children>
             <Circle fx:id="CanvasCircle" fill="#c6c6c7" layoutX="230.0" layoutY="90.0" radius="61.0" stroke="BLACK" strokeType="INSIDE" />

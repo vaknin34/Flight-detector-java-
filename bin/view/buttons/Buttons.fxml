@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="113.0" prefWidth="1150" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.buttons.ButtonsController">
+<AnchorPane prefHeight="113.0" prefWidth="1150" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="view.buttons.ButtonsController">
         <children>
             <Button fx:id="doubleback" layoutX="108.0" layoutY="13.0" mnemonicParsing="false" onAction="#SkipbackwardDouble" prefHeight="26.0" prefWidth="76.0" text="&lt;&lt;" />
             <Button fx:id="back" layoutX="194.0" layoutY="13.0" mnemonicParsing="false" onAction="#Skipbackward" prefHeight="26.0" prefWidth="66.0" text="&lt;" />

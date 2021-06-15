@@ -7,7 +7,7 @@
 <?import view.openfiles.Openfiles?>
 <?import view.joystick.Joystick?>
 	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.WindowController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="view.WindowController">
 	<left>
    <Viewlist fx:id="viewlist"></Viewlist>
    </left>
