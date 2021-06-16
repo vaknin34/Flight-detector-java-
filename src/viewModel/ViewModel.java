@@ -47,16 +47,13 @@ public class ViewModel implements Observer
 	public StringProperty videoTime;
 	public StringProperty algoName;
 	public StringProperty testPath,xmlPath;
-	public Model model;
-	XmlSettings xs;
-	XmlComplete xc;
-	TimeSeries Train,Test;
-	TimeSeriesAnomalyDetector ad;
-	List<AnomalyReport> reports;
-	
-	
+	private Model model;
+	private XmlSettings xs;
+	private XmlComplete xc;
+	public TimeSeries Train,Test;
+	public TimeSeriesAnomalyDetector ad;
+	public List<AnomalyReport> reports;
 	public Runnable Play,Pause,Stop,Forward,Backward,DoubleForward,DoubleBackward,connect,disconnect;
-	boolean cord =false;
 	
 	public ViewModel()
 	{
@@ -377,10 +374,6 @@ public class ViewModel implements Observer
 				float y = Test.getSepecificValue(selctedCol, nv.intValue());
 				Platform.runLater(()->{
 					s.getData().add(new XYChart.Data(nv.intValue(),y));
-					/*if (s.getData().size() > 50) {
-						s.getData().remove(0);
-					}*/
-					
 				});
 						
 			}
@@ -392,7 +385,7 @@ public class ViewModel implements Observer
 						Platform.runLater(()->{
 							anomaly_Flight.getData().add(new XYChart.Data(Test.getSepecificValue(selctedCol, intValue),Test.getSepecificValue(corlleatedCol, intValue)));
 						});
-						if (anomaly_Flight.getData().size() > 20) {
+						if (anomaly_Flight.getData().size() > 30) {
 							Platform.runLater(()->{
 								anomaly_Flight.getData().remove(0);
 								anomalies.getData().clear();
@@ -410,7 +403,6 @@ public class ViewModel implements Observer
 	}
 	
 	private boolean isRepot(String selctedCol, String corlleatedCol, int intValue) {
-		// TODO Auto-generated method stub
 		if (reports != null && reports.size() != 0) {
 			String discription = selctedCol + "-" +corlleatedCol;
 			for (AnomalyReport anomalyReport : reports) {
@@ -423,8 +415,6 @@ public class ViewModel implements Observer
 	}
 	
 	private boolean isRepotZscore(String selctedCol, int intValue) {
-		// TODO Auto-generated method stub
-		
 		if (reports != null && reports.size() != 0) {
 			String discription = selctedCol;
 			for (AnomalyReport anomalyReport : reports) {
@@ -435,8 +425,6 @@ public class ViewModel implements Observer
 		}
 		return false;
 	}
-	
-	
 	
 	public void FilluntillNow(String selctedCol, Series seriesA) {
 			for (int i = 0; i < timeStep.intValue() && timeStep.intValue() < Test.NumOfRows; i++) {

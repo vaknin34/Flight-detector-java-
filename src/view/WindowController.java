@@ -22,18 +22,18 @@ import view.buttons.Buttons;
 
 public class WindowController {
 
-	@FXML Viewlist viewlist;
-	@FXML Openfiles openfiles;
-	@FXML Graphs graphs;
-	@FXML Joystick joystick;
-	@FXML Buttons buttons;
+	@FXML public Viewlist viewlist;
+	@FXML public Openfiles openfiles;
+	@FXML public Graphs graphs;
+	@FXML public Joystick joystick;
+	@FXML public Buttons buttons;
 	
-	Series seriesFeature;
-	Series seriesCor;
-	Series seriesAlgo;
-	Series seriesRegularFlight;
-	Series seriesAnomaliesFlight;
-	Series seriesAnomaliesPoints;
+	public Series seriesFeature;
+	public Series seriesCor;
+	public Series seriesAlgo;
+	public Series seriesRegularFlight;
+	public Series seriesAnomaliesFlight;
+	public Series seriesAnomaliesPoints;
 	
 	String selectedCol,corlleatedCol;
 	

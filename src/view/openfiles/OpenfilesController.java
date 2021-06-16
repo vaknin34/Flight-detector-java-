@@ -5,10 +5,10 @@ import javafx.scene.control.MenuItem;
 
 public class OpenfilesController {
 
-	@FXML MenuItem csv;
-	@FXML MenuItem csv1;
-	@FXML MenuItem algo;
-	@FXML MenuItem xml;
+	@FXML private MenuItem csv;
+	@FXML private MenuItem csv1;
+	@FXML private MenuItem algo;
+	@FXML private MenuItem xml;
 
 	public Runnable xmlFile,trainCSVFile,testCSVFile,classFile,connect,disconnect;
 	

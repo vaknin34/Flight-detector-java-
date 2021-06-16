@@ -10,16 +10,16 @@ import javafx.scene.control.Label;
 public class ButtonsController
 {
 
-	@FXML Button doubleback;
-	@FXML Button back;
-	@FXML Button play;
-	@FXML Button pause;
-	@FXML Button stop;
-	@FXML Button forward;
-	@FXML Button doubleforward;
-	@FXML ChoiceBox<Number> videoSpeed;
-	@FXML Slider videoSlider;
-	@FXML Label VideoTime;
+	@FXML private Button doubleback;
+	@FXML private Button back;
+	@FXML private Button play;
+	@FXML private Button pause;
+	@FXML private Button stop;
+	@FXML private Button forward;
+	@FXML private Button doubleforward;
+	@FXML protected ChoiceBox<Number> videoSpeed;
+	@FXML protected Slider videoSlider;
+	@FXML protected Label VideoTime;
 	
 	public Runnable onPlay,onPause,onStop,onForward,onBackward,onDoubleForward,onDoubleBackward,clearGraphs,clearSelect;
 	

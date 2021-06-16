@@ -7,16 +7,16 @@ import javafx.scene.control.Slider;
 
 public class JoystickController {
 
-	@FXML Circle CanvasCircle;
-	@FXML Circle movingCircle;
-	@FXML Slider rudder;
-	@FXML Slider throttle;
-	@FXML Gauge DirectionValue;
-	@FXML Gauge AltitudeValue;
-	@FXML Gauge yawValue;
-	@FXML Gauge speedValue;
-	@FXML Gauge PitchValue;
-	@FXML Gauge RollValue;
+	@FXML protected Circle CanvasCircle;
+	@FXML protected Circle movingCircle;
+	@FXML protected Slider rudder;
+	@FXML protected Slider throttle;
+	@FXML protected Gauge DirectionValue;
+	@FXML protected Gauge AltitudeValue;
+	@FXML protected Gauge yawValue;
+	@FXML protected Gauge speedValue;
+	@FXML protected Gauge PitchValue;
+	@FXML protected Gauge RollValue;
 	
 
 }

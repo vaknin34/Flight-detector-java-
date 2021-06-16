@@ -28,18 +28,13 @@ public class AlgoLoader implements TimeSeriesAnomalyDetector{
 
 	@Override
 	public void learnNormal(TimeSeries ts) {
-		// TODO Auto-generated method stub
 		algo.learnNormal(ts);
-		
 	}
 
 	@Override
 	public List<AnomalyReport> detect(TimeSeries ts) {
-		// TODO Auto-generated method stub
 		return algo.detect(ts);
 	}
-
-	
 
 	@Override
 	public Series paint(String... strings) {

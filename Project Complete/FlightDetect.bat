@@ -1,2 +1,2 @@
 @ECHO OFF
-start java -jar FlightDetect.jar
+start javaw -jar FlightDetect.jar

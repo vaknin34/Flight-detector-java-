@@ -6,14 +6,14 @@ import javafx.scene.chart.NumberAxis;
 
 public class GraphsController {
 
-	@FXML LineChart CorrelatedChart;
-	@FXML LineChart FeatureChart;
-	@FXML LineChart algoChart;
-	@FXML NumberAxis FchartX;
-	@FXML NumberAxis FchartY;
-	@FXML NumberAxis CorxAxis;
-	@FXML NumberAxis CoryAxis;
-	@FXML NumberAxis algoAxisX;
-	@FXML NumberAxis algoAxisY;
+	@FXML public LineChart CorrelatedChart;
+	@FXML public LineChart FeatureChart;
+	@FXML public LineChart algoChart;
+	@FXML public NumberAxis FchartX;
+	@FXML public NumberAxis FchartY;
+	@FXML public NumberAxis CorxAxis;
+	@FXML public NumberAxis CoryAxis;
+	@FXML public NumberAxis algoAxisX;
+	@FXML public NumberAxis algoAxisY;
 
 }

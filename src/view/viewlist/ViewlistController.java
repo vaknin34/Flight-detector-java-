@@ -5,6 +5,6 @@ import javafx.scene.control.ListView;
 
 public class ViewlistController {
 
-	@FXML ListView<String> listView;
+	@FXML protected ListView<String> listView;
 
 }
