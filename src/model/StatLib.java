@@ -3,12 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.TimeSeries.Feature;
+import model.Feature;
 
 public class StatLib {
 
-	
-	
 	public static float[] al_to_fl(List<Float> list) {
 		float[] arr = new float[list.size()];
 		int index = 0;
@@ -17,9 +15,7 @@ public class StatLib {
 		}	
 		return arr;
 	
-	}
-	
-	
+	}	
 	// simple average
 	public static float avg(float[] x){
 		float sum =0;
@@ -104,10 +100,10 @@ public class StatLib {
 		float max =0;
 		MatchFeature mf = null ;
 		for (int i = 0; i < ts.getTable().size(); i++) {
-			TimeSeries.Feature f1 = ts.getTable().get(i);
+			Feature f1 = ts.getTable().get(i);
 			for (int j = i+1; j < ts.getTable().size(); j++) {
 				if (i != j) {
-					TimeSeries.Feature f2 = ts.getTable().get(j);
+					Feature f2 = ts.getTable().get(j);
 					float cor = Math.abs(pearson(al_to_fl(f1.getSamples()), al_to_fl(f2.getSamples())));
 					if(cor > max && cor > treshold) {
 						max = cor;
@@ -120,7 +116,6 @@ public class StatLib {
 			max = 0;
 			mf= null;
 		}
-		//mfl.forEach(m ->System.out.println(m.f1+" " + m.f2 +" "+ m.correlation));
 		return new MatchAndNoMatch(mfl, noMatch);
 	}
 	
@@ -164,18 +159,4 @@ public class StatLib {
 		}
 		return p_array;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

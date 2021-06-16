@@ -10,10 +10,9 @@ import java.util.ArrayList;
 
 public class FGConnection
 {
-	Model model;
-	XmlSettings flySettings;
-	Socket client;
-	PrintWriter OutToServer;
+	protected XmlSettings flySettings;
+	protected Socket client;
+	protected PrintWriter OutToServer;
   
 	   public FGConnection(XmlSettings setiing) throws UnknownHostException, IOException {
 		this.flySettings = setiing;
@@ -41,17 +40,4 @@ public class FGConnection
 			OutToServer.close();
 		} catch (IOException e) {}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-
-	
 }

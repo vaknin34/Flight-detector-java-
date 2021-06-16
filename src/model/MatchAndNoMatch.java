@@ -2,12 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
-import model.TimeSeries.Feature;
+import model.Feature;
 
 public class MatchAndNoMatch {
 	
-	ArrayList<MatchFeature> match;
-	ArrayList<Feature> noMatch;
+	public ArrayList<MatchFeature> match;
+	public ArrayList<Feature> noMatch;
 	
 	
 	public MatchAndNoMatch(ArrayList<MatchFeature> match, ArrayList<Feature> noMatch) {
@@ -15,6 +15,4 @@ public class MatchAndNoMatch {
 		this.match = match;
 		this.noMatch = noMatch;
 	}
-	
-
 }

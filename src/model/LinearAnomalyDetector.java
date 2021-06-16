@@ -8,39 +8,25 @@ import java.util.function.Function;
 
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
-import model.TimeSeries.Feature;
+import model.Feature;
 
 
 
 public class LinearAnomalyDetector implements TimeSeriesAnomalyDetector {
 
-	ArrayList<CorrelatedFeatures> cofeatures_ls = new ArrayList<CorrelatedFeatures>();
-	TimeSeries ts;
-
-	
+	protected ArrayList<CorrelatedFeatures> cofeatures_ls = new ArrayList<CorrelatedFeatures>();
+	protected TimeSeries ts;
 
 //getter
 	public List<CorrelatedFeatures> getNormalModel(){return this.cofeatures_ls;}
 
 //----------------------------functions-----------------------------------//
 
-	/*
-	public boolean contain(CorrelatedFeatures cof) {
-		boolean b = false;
-		for (CorrelatedFeatures correlatedFeature : this.cofeatures_ls) {
-			if (correlatedFeature.feature1.equals(cof.feature2) && correlatedFeature.feature2.equals(cof.feature1)){
-				b = true;
-			}
-		}
-		return b;
-	} 
-	*/
 //Preliminary step - we will take a file of a normal flight and check for each
 //characteristic which of the other characteristics is most correlative to it according to pearson	
 	public void learnNormal(TimeSeries ts) {
 		this.ts=ts;
 		MatchAndNoMatch mam = StatLib.FindMatch(ts, 0.9);
-		//mam.match.forEach(m -> System.out.println(ts.getFeatureByName2(m.f1).name_id + " "+ ts.getFeatureByName2(m.f2).name_id + " " + m.correlation));
 		for (MatchFeature maf : mam.match) {
 			Feature f1 = ts.getFeatureByName2(maf.f1);
 			Feature f2 = ts.getFeatureByName2(maf.f2);
@@ -58,51 +44,6 @@ public class LinearAnomalyDetector implements TimeSeriesAnomalyDetector {
 			CorrelatedFeatures cof = new CorrelatedFeatures(f1.getName(), f2.getName(), maf.correlation, lrg,(float) (threshold+0.025));
 			this.cofeatures_ls.add(cof);
 		}
-		//System.out.println("");
-		//this.cofeatures_ls.forEach(cof -> System.out.println(ts.getFeatureByName2(cof.feature1).name_id + " " + ts.getFeatureByName2(cof.feature2).name_id + " " + cof.corrlation));
-		
-	
-		
-		
-		
-		/*
-		System.out.println("linear corrleation");
-		float max = 0;
-		ArrayList<Feature> f_array = ts.getTable();
-		for (int i = 0; i < f_array.size(); i++) {
-			float [] mainfeature = StatLib.al_to_fl(f_array.get(i).getSamples());
-			int index = 0;
-			for (int j = i+1; j < f_array.size()-1; j++) {
-				if (i != j) {
-					float [] subfeature = StatLib.al_to_fl(f_array.get(j).getSamples());
-					float res  = StatLib.pearson(mainfeature, subfeature);
-					res = Math.abs(res);
-					if (res >= max && res > 0.9) {
-						max = res;
-						index = j;
-					}
-				}	
-			}
-			if (max != 0) {
-				float [] subfeature = StatLib.al_to_fl(f_array.get(index).getSamples());
-				Point[] points = points_gen(mainfeature, subfeature);
-				Line lrg = StatLib.linear_reg(points);
-				float threshold = 0;
-				for (Point point : points) {
-					float dev = StatLib.dev(point, lrg);
-					if (threshold < dev) {
-						threshold = dev;
-					}
-				}
-				CorrelatedFeatures cof = new CorrelatedFeatures(f_array.get(i).getName(), f_array.get(index).getName(), max, lrg,(float) (threshold+0.025));
-				if (!contain(cof)) {
-					System.out.println(f_array.get(i).name_id + " " + f_array.get(index).name_id);
-					this.cofeatures_ls.add(cof);
-				}
-			}
-			max =0;
-			
-		}*/
 	}
 
 //The phase of detecting the anomalies - in this phase we will receive a flight file and according to the
@@ -155,15 +96,10 @@ public class LinearAnomalyDetector implements TimeSeriesAnomalyDetector {
 		
 		s.getData().add(new XYChart.Data(xMin, yMin));
 		s.getData().add(new XYChart.Data(xMax,yMax));
-		//s.forEach(e -> System.out.println(e.x + " " + e.y));
 		return s;
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Linear";
-	}
+	public String getName() { return "Linear";}
 	
-
 }

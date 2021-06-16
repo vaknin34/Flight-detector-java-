@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class XmlSettings implements Serializable{
-	public XmlSettings() {}
 	private ArrayList<FeatureSettings> afs;
-	String host; 
-	int port;
-	double timeout;
+	protected String host; 
+	protected int port;
+	protected double timeout;
 
+	public XmlSettings() {}
 //--------------------------------setters & getters--------------------------------------//
 	public String getHost() {return host;}
 	public void setHost(String host) {this.host = host;}
@@ -58,13 +58,4 @@ public class XmlSettings implements Serializable{
 		}catch (Exception e) {System.out.println("invalid name");}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

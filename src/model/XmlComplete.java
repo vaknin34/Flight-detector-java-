@@ -8,24 +8,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class XmlComplete {
-	ViewNameLoader LoadRealNames ;
-	XmlSettings ClientSettings;
-	String Path_to_real_name;
-	ArrayList<String> fd;
-	String backup;
-	XmlSettings ClientBackUp;
+	private ArrayList<String> fd;
+	private XmlSettings ClientBackUp;
+	protected ViewNameLoader LoadRealNames ;
+	protected XmlSettings ClientSettings;
+	protected String Path_to_real_name;
 	
 	public XmlComplete() {
-		// TODO Auto-generated constructor stub
 		LoadRealNames = new ViewNameLoader();
 		ClientSettings = new XmlSettings();
 		Path_to_real_name = "resources/ViewNamesSettings.txt";
 		fd = new ArrayList<String>();
 	}
 	
-	public void  LoadRealNames() {
-		this.fd  =  LoadRealNames.Load(Path_to_real_name);
-	}
+	public void  LoadRealNames() { this.fd  =  LoadRealNames.Load(Path_to_real_name);}
 	
 	public void WriteXmlToUser() throws IOException {
 		this.LoadRealNames();
@@ -56,7 +52,7 @@ public class XmlComplete {
 			a.show();
 			this.ClientBackUp = new_setting;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+	
 			if (this.ClientBackUp != null) {
 				Alert a = new Alert(AlertType.WARNING);
 				a.setHeaderText("Xml Failed");
@@ -72,7 +68,6 @@ public class XmlComplete {
 		}
 		return new_setting;
 	}
-	//|| FeatureSetting.getAssosicate_name().equals("please Enter Title here")
 	public void SettingCheck(XmlSettings xs) throws Exception {
 		for (FeatureSettings FeatureSetting : xs.getAfs()) {
 			if (FeatureSetting.getAssosicate_name().equals("") || FeatureSetting.getAssosicate_name().equals("enter name in CSV file(Assosicate_name)")  ) {
@@ -91,10 +86,7 @@ public class XmlComplete {
 		
 		try {
 			XmlWR.WriteToXML(xs);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("file could not save");
-		}
+		} catch (IOException e) { System.out.println("file could not save");}
 	}
 		
 		

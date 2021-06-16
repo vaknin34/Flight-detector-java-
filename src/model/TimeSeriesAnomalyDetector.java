@@ -9,8 +9,8 @@ import javafx.scene.chart.XYChart.Series;
 
 public interface TimeSeriesAnomalyDetector {
 	
-	void learnNormal(TimeSeries ts);
-	List<AnomalyReport> detect(TimeSeries ts);
-	Series  paint(String ...strings );
-	String getName();
+	public void learnNormal(TimeSeries ts);
+	public List<AnomalyReport> detect(TimeSeries ts);
+	public Series  paint(String ...strings );
+	public String getName();
 }

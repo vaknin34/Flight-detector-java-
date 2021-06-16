@@ -9,15 +9,15 @@ import java.util.function.Function;
 import javafx.geometry.Point2D;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
-import model.TimeSeries.Feature;
+import model.Feature;
 
 public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 {
-	HashMap<String, Circle> hybrid = new HashMap<>();
-	HashMap<String, LinearAnomalyDetector> lin = new HashMap<>();
-	HashMap<String, ZscoreAnomalyDetector> zScore=new HashMap<>();
+	protected HashMap<String, Circle> hybrid = new HashMap<>();
+	protected HashMap<String, LinearAnomalyDetector> lin = new HashMap<>();
+	protected HashMap<String, ZscoreAnomalyDetector> zScore=new HashMap<>();
 	private Random rand = new Random();
-	TimeSeries ts;
+	protected TimeSeries ts;
 	
 //An algorithm that chooses according to a measure of correlation how to measure / behave -
 //according to the z-score algorithm or according to a linear regression algorithm
@@ -189,12 +189,8 @@ public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 				float y=(float) (radius*Math.sin(angle)+ycenter);
 				points.add(new Point(x, y));
 			}
-			
-			for (Point point : points) {
+			for (Point point : points) 
 				s.getData().add(new XYChart.Data(point.x, point.y));
-			}
-			
-			
 			return s;
 		}
 		else if (lin.containsKey(key)) {
@@ -209,10 +205,7 @@ public class HybridAnomalyDetector implements TimeSeriesAnomalyDetector
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Hybrid";
-	}
+	public String getName() { return "Hybrid";}
 	
 
 }

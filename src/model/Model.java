@@ -17,29 +17,29 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Model extends Observable {
 
-	Timer t = null;
-	IntegerProperty timeStep;
-	int rate = 0;
-	TimeSeriesAnomalyDetector ad;
-	XmlSettings ClientSettings;
-	TimeSeries Train = null;
-	TimeSeries Test = null;
-	FGConnection fg;
+	private Timer t = null;
+	private FGConnection fg;
+	protected IntegerProperty timeStep;
+	protected int rate = 0;
+	protected TimeSeriesAnomalyDetector ad;
+	protected XmlSettings ClientSettings;
+	protected TimeSeries Train = null;
+	protected TimeSeries Test = null;
 	
-	double aileron ;
-	double elevators;
-	double rudder;
-	double throttle;
-	double pitch;
-	double yaw;
-	double direction ;
-	double speed;
-	double roll;
-	double height;
-	boolean hasPause=true;
-	boolean hasStop = true;
-	boolean flagConnect=false;
-	boolean flightStart=false;
+	private double aileron ;
+	private double elevators;
+	private double rudder;
+	private double throttle;
+	private double pitch;
+	private double yaw;
+	private double direction ;
+	private double speed;
+	private double roll;
+	private double height;
+	private boolean hasPause=true;
+	private boolean hasStop = true;
+	private boolean flagConnect=false;
+	private boolean flightStart=false;
 	
 	public Model(IntegerProperty timeStep,DoubleProperty rate) {
 		this.timeStep=timeStep;

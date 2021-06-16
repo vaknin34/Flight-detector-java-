@@ -14,8 +14,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
 public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
-	ArrayList<Double> t_x = new ArrayList<Double>();
-	TimeSeries ts;
+	private ArrayList<Double> t_x = new ArrayList<Double>();
+	protected TimeSeries ts;
 
 //Preliminary stage - where we take a file of a normal flight and check for each characteristic
 	//his behavior during a normal flight
@@ -23,7 +23,7 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 	@Override
 	public void learnNormal(TimeSeries ts) {
 		this.ts = ts;
-		for (TimeSeries.Feature f : ts.getTable()) {
+		for (Feature f : ts.getTable()) {
 			double max = -1;
 			for (int i = 2; i < f.getSamples().size(); i++) {
 				double x_avg = StatLib.avg( StatLib.al_to_fl( f.getSamples().subList(0, i)));
@@ -52,7 +52,7 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 		ArrayList<AnomalyReport> arl = new ArrayList<AnomalyReport>();
 		// TODO Auto-generated method stub
 		for (int i = 0; i < ts.getTable().size(); i++) {
-			TimeSeries.Feature f = ts.getTable().get(i);
+			Feature f = ts.getTable().get(i);
 			for (int j = 2; j < f.getSamples().size(); j++) {
 				double x_avg = StatLib.avg( StatLib.al_to_fl( f.getSamples().subList(0, j)));
 				double std =  Math.sqrt(StatLib.var(StatLib.al_to_fl(f.getSamples().subList(0, j))));
@@ -70,10 +70,6 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 		
 		return arl;
 	}
-
-
-
-
 
 	@Override
 	public Series paint(String... strings) {
@@ -96,9 +92,6 @@ public class ZscoreAnomalyDetector implements TimeSeriesAnomalyDetector{
 
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Zscore";
-	}
+	public String getName() { return "Zscore";}
 
 }

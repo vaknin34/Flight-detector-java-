@@ -178,12 +178,12 @@ public class WindowController {
 				joystick.elevator.bind(vm.DisplayVar.get("elevator"));
 				joystick.rudder.valueProperty().bind(vm.DisplayVar.get("rudder"));
 				joystick.throttle.valueProperty().bind(vm.DisplayVar.get("throttle"));
-				joystick.direction.valueProperty().bind(vm.DisplayVar.get("direction"));
-				joystick.altitude.valueProperty().bind(vm.DisplayVar.get("heigth"));
-				joystick.pitch.valueProperty().bind(vm.DisplayVar.get("pitch"));
-				joystick.roll.valueProperty().bind(vm.DisplayVar.get("roll"));
-				joystick.speed.valueProperty().bind(vm.DisplayVar.get("speed"));
-				joystick.yaw.valueProperty().bind(vm.DisplayVar.get("yaw"));
+				joystick.direction.valueProperty().bindBidirectional(vm.DisplayVar.get("direction"));
+				joystick.altitude.valueProperty().bindBidirectional(vm.DisplayVar.get("heigth"));
+				joystick.pitch.valueProperty().bindBidirectional(vm.DisplayVar.get("pitch"));
+				joystick.roll.valueProperty().bindBidirectional(vm.DisplayVar.get("roll"));
+				joystick.speed.valueProperty().bindBidirectional(vm.DisplayVar.get("speed"));
+				joystick.yaw.valueProperty().bindBidirectional(vm.DisplayVar.get("yaw"));
 			}
 		});
 		vm.algoName.addListener((o,ov,nv)->{

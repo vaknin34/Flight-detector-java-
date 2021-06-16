@@ -11,7 +11,7 @@ import javafx.scene.chart.XYChart.Series;
 
 
 public class AlgoLoader implements TimeSeriesAnomalyDetector{
-	TimeSeriesAnomalyDetector algo;
+	private TimeSeriesAnomalyDetector algo;
 	
 	public AlgoLoader(String p,String classname) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		String path =  "file://" + p;
@@ -27,26 +27,15 @@ public class AlgoLoader implements TimeSeriesAnomalyDetector{
 	public void setAlgo(TimeSeriesAnomalyDetector algo) {this.algo = algo;}
 
 	@Override
-	public void learnNormal(TimeSeries ts) {
-		algo.learnNormal(ts);
-	}
+	public void learnNormal(TimeSeries ts) { algo.learnNormal(ts);}
+	
+	@Override
+	public List<AnomalyReport> detect(TimeSeries ts) { return algo.detect(ts);}
 
 	@Override
-	public List<AnomalyReport> detect(TimeSeries ts) {
-		return algo.detect(ts);
-	}
+	public Series paint(String... strings) { return algo.paint(strings);}
 
 	@Override
-	public Series paint(String... strings) {
-		// TODO Auto-generated method stub
-		return algo.paint(strings);
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return algo.getName();
-	}
-
+	public String getName() {return algo.getName();}
 
 }

@@ -13,5 +13,4 @@ public class CorrelatedFeatures {
 		this.lin_reg = lin_reg;
 		this.threshold = threshold;
 	}
-	
 }
