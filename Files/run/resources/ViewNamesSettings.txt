@@ -1,0 +1,10 @@
+aileron
+elevator
+rudder
+throttle
+height
+speed
+direction
+roll
+pitch
+yaw
